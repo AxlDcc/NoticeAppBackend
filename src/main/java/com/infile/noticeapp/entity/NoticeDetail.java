@@ -7,15 +7,12 @@ package com.infile.noticeapp.entity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,30 +27,29 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "notice")
-public class Notice {
+@Table(name = "NOTICE_DETAIL")
+public class NoticeDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id")
     private Integer id;
     
+    @Column(name="content_title", length=250)
+    private String contentTitle;
+    
+    @Column(name="content_description", length=250)
+    private String contentDescription;
+        
+    @Column(name="content_image_url", length=250)
+    private String contentImageUrl;
+    
+    @Column(name="content_order")
+    private Integer contentOrder;
+    
+    @Column(name="primary_content")
+    private boolean primaryContent;
+    
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="notice_category_id")
-    private NoticeCategory noticeCategory;
-    
-    @Column(name="title", length=120)
-    private String title;
-    
-    @Column(name="sumary_content", length=200)
-    private String sumaryContent;
-    
-    @Column(name="tag", length=200)
-    private String tag;
-    
-    @Column(name="state")
-    private boolean state;
-    
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "notice", cascade = CascadeType.ALL)
-    private List<NoticeDetail> noticeDetailList;
-    
+    @JoinColumn(name="notice_id")
+    private Notice notice;
 }
