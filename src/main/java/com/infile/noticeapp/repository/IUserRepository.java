@@ -5,6 +5,7 @@
 package com.infile.noticeapp.repository;
 
 import com.infile.noticeapp.entity.User;
+import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -12,5 +13,5 @@ import org.springframework.data.repository.CrudRepository;
  * @author Clatd
  */
 public interface IUserRepository extends CrudRepository<User,Integer> {
-    
+    Optional<User> findUserByEmailAndState(String userEmail, boolean userStatus);
 }
