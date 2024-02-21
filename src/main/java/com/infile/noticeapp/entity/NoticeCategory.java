@@ -4,6 +4,7 @@
  */
 package com.infile.noticeapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -38,6 +39,7 @@ public class NoticeCategory {
     @Column(name="name", length=100)
     private String name;
     
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "noticeCategory", cascade = CascadeType.ALL)
     private List<Notice> noticeList;
 }

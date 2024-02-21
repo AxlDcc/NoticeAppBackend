@@ -4,6 +4,7 @@
  */
 package com.infile.noticeapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -49,6 +50,7 @@ public class NoticeDetail {
     @Column(name="primary_content")
     private boolean primaryContent;
     
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="notice_id")
     private Notice notice;
