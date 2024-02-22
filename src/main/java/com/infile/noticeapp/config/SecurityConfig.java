@@ -4,6 +4,7 @@
  */
 package com.infile.noticeapp.config;
 
+import java.util.Arrays;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,6 +17,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.cors.CorsConfiguration;
 
 /**
  *
@@ -43,6 +45,15 @@ public class SecurityConfig {
             }).sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authenticationProvider(authenticationProvider)
             .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+        
+        http.cors(cors -> cors.configurationSource(request -> {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("*"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        return configuration;
+        }));
+        
         return http.build();
     }
 }
